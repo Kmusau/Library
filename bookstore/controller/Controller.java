@@ -20,13 +20,15 @@ public class Controller {
 	//private Environment environment;
 	@Autowired
 	private BooksRepository booksRepo;
+	@Autowired
+	private ModelMapper modelMapper;
 
 	@GetMapping("/allbooks")
-	public List<Books> allbooks() {
+	public List<BooksEntity> allbooks() {
 		return booksRepo.findAll();
 	}
 	@GetMapping("/books/{bookid}")
-	public Optional<Books> specificBook(@PathVariable String bookid ) {
+	public Optional<BooksEntity> specificBook(@PathVariable String bookid ) {
 		return booksRepo.findById(bookid);
 	}
 	@PostMapping("/books/borrow")
@@ -35,11 +37,14 @@ public class Controller {
 		return booksRepo.findAll();
 	}
 	
-	/*@GetMapping("/books/{studentno}")
-	public Optional<Books> booksByStudent(@PathVariable int studentno) {
-		Optional<Books> optbooks =  booksRepo.findAllBooksByStudent(studentno);
+	@GetMapping("/books/{studentno}")
+	public Optional<BooksEntity> booksByStudent(@PathVariable int studentno) {
+		Optional<BooksEntity> optbooks =  booksRepo.findAllBooksByStudent(studentno);
+		if(optbooks.isPresent()){
+			return optbooks.get();
+		}
 		optbooks.setPort(Integer.parseInt(environment.getProperties("local.server.port")));
 		return optbooks;
-		
-	}*/
+
+	}
 }

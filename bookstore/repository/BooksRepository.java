@@ -9,6 +9,7 @@ import projectLibrary.bookstore.DTO.Books;
 public interface BooksRepository extends JpaRepository<Books, String> {
 
 	Optional<Books> findAllBooksByStudent(int studentno);
-	
+
+	Optional<Books> findBooksByStudentNo(int studentno);
 
 }
